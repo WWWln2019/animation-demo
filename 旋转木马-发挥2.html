@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        ul {
+            list-style: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            width: 1100px;
+            margin: 0px auto;
+        }
+
+        .slide {
+            height: 400px;
+            position: relative;
+        }
+
+        .slide > ul {
+            height: 400px;
+        }
+
+        .slide > ul > li {
+            height: 400px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /*.slide > ul > li:nth-child(-n+6) {
+            height: 400px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .slide > ul > li:nth-child(n+7) {
+            height: 400px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+*/
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+    <div class="slide" id="slide">
+        <ul>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/1.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/2.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/3.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/4.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/5.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/6.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/7.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/8.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/9.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/10.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/11.jpg"></a></li>
+        </ul>
+    </div>
+</div>
+<script src="common.js"></script>
+<script src="variableAnimate.js"></script>
+<script>
+    var config = [
+        {width: 350, height: 250, top: 20, left: 100, zIndex: 1, opacity: 0.2},
+        {width: 450, height: 300, top: 40, left: 50, zIndex: 2, opacity: 0.4},
+        {width: 550, height: 350, top: 60, left: 0, zIndex: 3, opacity: 0.6},
+        {width: 450, height: 300, top: 80, left: 50, zIndex: 4, opacity: 0.8},
+        {width: 350, height: 250, top: 100, left: 100, zIndex: 5, opacity: 0.9},
+        {width: 700, height: 350, top: 120, left: 200, zIndex: 6, opacity: 1.0},
+        {width: 350, height: 250, top: 100, left: 650, zIndex: 5, opacity: 0.9},
+        {width: 450, height: 300, top: 80, left: 600, zIndex: 4, opacity: 0.8},
+        {width: 550, height: 350, top: 60, left: 550, zIndex: 3, opacity: 0.6},
+        {width: 450, height: 300, top: 40, left: 600, zIndex: 2, opacity: 0.4},
+        {width: 350, height: 250, top: 20, left: 650, zIndex: 1, opacity: 0.2},
+    ];
+
+    var lis = document.getElementById("slide").getElementsByTagName("li");
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].style = config[i];
+        //lis[i].setAttribute("index", i);
+        variableAnimate(lis[i], config[i], 20);
+        lis[i].addEventListener("mouseover", mouseoverHandle);
+        //lis[i].addEventListener("mouseout", mouseoutHandle);
+    }
+
+    var curIndex = null;
+    var centerEle = lis[Math.floor(lis.length / 2)].getElementsByTagName("img")[0];
+console.log(centerEle)
+
+    function mouseoverHandle() {
+        centerEle.src = this.getElementsByTagName("img")[0].src;
+
+    }
+
+    /* function mouseoutHandle() {
+         variableAnimate(this, config[cur], 20);
+         variableAnimate(lis[centerIndex], config[centerIndex], 20);
+         cur = null;
+     }*/
+</script>
+
+</body>
+</html>

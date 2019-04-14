@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        ul {
+            list-style: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 1150px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+
+        div li {
+            width: 240px;
+            height: 400px;
+            float: left;
+        }
+
+        div ul {
+            width: 1300px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<script src="common.js"></script>
+<script src="variableAnimate.js"></script>
+<script>
+    var lis = document.getElementById("box").getElementsByTagName("li");
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].style.backgroundImage = "url(images/" + (i + 1) + ".jpg)";
+        lis[i].addEventListener("mouseover", mouseoverHandle);
+        lis[i].addEventListener("mouseout", mouseoutHandle);
+    }
+
+    function mouseoverHandle() {
+        for (var j = 0; j < lis.length; j++) {
+            variableAnimate(lis[j], {width: 75},20);
+        }
+        variableAnimate(this, {width: 900},20);
+    }
+
+    function mouseoutHandle() {
+        for (var j = 0; j < lis.length; j++) {
+            variableAnimate(lis[j], {width: 240},20);
+        }
+    }
+</script>
+
+</body>
+</html>

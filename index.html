@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: orangered;
+            position: absolute;
+            top: 20px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="动画" id="doAnimate"/>
+<div id="dv"></div>
+<script src="common.js"></script>
+<script src="evenSpaceAnimate.js"></script>
+<script src="variableAnimate.js"></script>
+<script>
+    var dv = document.getElementById("dv");
+    var doAnimateBtn = document.getElementById("doAnimate");
+
+    doAnimateBtn.onclick = function () {
+        //variableAnimate(dv, {left: 800,opacity: 0.4,});
+        variableAnimate(dv, {opacity: 0.4, backgroundColor: "rgb(138,43,226)"});
+    }
+</script>
+</body>
+</html>

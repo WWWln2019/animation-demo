@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>哈哈</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 600px;
+            height: 300px;
+            margin: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .big {
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            top: 0;
+            left: 650px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+
+        .mask {
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            cursor: move;
+            display: none;
+        }
+
+        .small {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="small"><!--小层-->
+        <img src="images/small.jpg" width="600" alt=""/>
+        <div class="mask"></div><!--遮挡层-->
+    </div><!--小图-->
+    <div class="big"><!--大层-->
+        <img src="images/big.jpg" width="1200" alt=""/><!--大图-->
+    </div><!--大图-->
+</div>
+<!--导入外部的js文件-->
+<script src="common.js"></script>
+<script>
+
+    //获取需要的元素
+    var box = document.getElementById("box");
+    //获取小图的div
+    var small = box.children[0];
+    //遮挡层
+    var mask = small.children[1];
+    //获取大图的div
+    var big = box.children[1];
+    //获取大图
+    var bigImg = big.children[0];
+
+    //鼠标进入显示遮挡层和大图的div
+    box.onmouseover = function () {
+        mask.style.display = "block";
+        big.style.display = "block";
+    };
+    //鼠标离开隐藏遮挡层和大图的div
+    box.onmouseout = function () {
+        mask.style.display = "none";
+        big.style.display = "none";
+    };
+
+    //鼠标的移动事件---鼠标是在小层上移动
+    small.onmousemove = function (e) {
+        var newX = e.clientX - mask.offsetWidth / 2 - 100;
+        var newY = e.clientY - mask.offsetHeight / 2 - 100;
+        var maxX = small.offsetWidth - mask.offsetWidth;
+        var maxY = small.offsetHeight - mask.offsetHeight;
+
+        newX = newX < 0 ? 0 : newX;
+        newY = newY < 0 ? 0 : newY;
+        newX = newX > maxX ? maxX : newX;
+        newY = newY > maxY ? maxY : newY;
+
+        //mask
+        mask.style.left = newX + "px";
+        mask.style.top = newY + "px";
+        //big
+        bigImg.style.marginLeft = -newX * (bigImg.offsetWidth - big.offsetWidth)/maxX + "px";
+        bigImg.style.marginTop = -newY * (bigImg.offsetHeight - big.offsetHeight)/maxY + "px";
+    };
+</script>
+
+
+</body>
+</html>

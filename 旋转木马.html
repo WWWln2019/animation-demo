@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="iconfont/iconfont.js"></script>
+    <style>
+
+        ul {
+            list-style: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            width: 1300px;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        .slide {
+            width: 1100px;
+            height: 500px;
+            margin: 0px auto;
+            position: relative;
+        }
+
+        .slide > ul > li {
+            height: 400px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /*.slide > ul > li:nth-child(-n+6) {
+            height: 400px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .slide > ul > li:nth-child(n+7) {
+            height: 400px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+*/
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .icon {
+            font-size: 50px;
+            /* 通过设置 font-size 来改变图标大小 */
+            width: 1em;
+            height: 1em;
+            /* 图标和文字相邻时，垂直对齐 */
+            vertical-align: -0.15em;
+            /* 通过设置 color 来改变 SVG 的颜色/fill */
+            color: #ccc;
+            fill: currentColor;
+            /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
+               normalize.css 中也包含这行 */
+            overflow: hidden;
+        }
+
+        .arrow {
+            display: none;
+        }
+
+        .arrow-left {
+            position: absolute;
+            top: 225px;
+            left: 55px;
+        }
+
+        .arrow-right {
+            position: absolute;
+            top: 225px;
+            right: 55px;
+        }
+
+        .arrow-left:hover, .arrow-right:hover {
+            color: #333;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+    <div class="slide" id="slide">
+        <ul>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/1.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/2.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/3.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/4.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/5.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/6.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/7.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/8.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/9.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/10.jpg"></a></li>
+            <li><a href="javascript:void(0);"><img src="images/旋转木马/11.jpg"></a></li>
+        </ul>
+    </div>
+    <div class="arrow">
+        <svg class="icon  arrow-left" aria-hidden="true">
+            <use xlink:href="#icon-icon-arrow-left"></use>
+        </svg>
+        <svg class="icon arrow-right" aria-hidden="true">
+            <use xlink:href="#icon-icon-arrow-right"></use>
+        </svg>
+    </div>
+</div>
+<script src="common.js"></script>
+<script src="variableAnimate.js"></script>
+<script>
+    window.onload = function () {
+        var config = [
+            {width: 350, height: 250, top: 20, left: 100, zIndex: 1, opacity: 0.2},
+            {width: 450, height: 300, top: 40, left: 50, zIndex: 2, opacity: 0.4},
+            {width: 550, height: 350, top: 60, left: 0, zIndex: 3, opacity: 0.6},
+            {width: 450, height: 300, top: 80, left: 50, zIndex: 4, opacity: 0.8},
+            {width: 350, height: 250, top: 100, left: 100, zIndex: 5, opacity: 0.9},
+            {width: 700, height: 350, top: 120, left: 200, zIndex: 6, opacity: 1.0},
+            {width: 350, height: 250, top: 100, left: 650, zIndex: 5, opacity: 0.9},
+            {width: 450, height: 300, top: 80, left: 600, zIndex: 4, opacity: 0.8},
+            {width: 550, height: 350, top: 60, left: 550, zIndex: 3, opacity: 0.6},
+            {width: 450, height: 300, top: 40, left: 600, zIndex: 2, opacity: 0.4},
+            {width: 350, height: 250, top: 20, left: 650, zIndex: 1, opacity: 0.2},
+        ];
+
+        var wrapEle = document.getElementById("wrap");
+        var arrowEle = document.getElementsByClassName("arrow")[0];
+        var lis = document.getElementById("slide").getElementsByTagName("li");
+        fresh(lis, config);
+
+        wrapEle.onmouseover = function () {
+            arrowEle.style.display = "block";
+        }
+        wrapEle.onmouseout = function () {
+            arrowEle.style.display = "none";
+        }
+
+        arrowEle.getElementsByClassName("arrow-left")[0].onclick = function () {
+            config.push(config.shift());
+            fresh(lis, config);
+        }
+        arrowEle.getElementsByClassName("arrow-right")[0].onclick = function () {
+            config.unshift(config.pop());
+            fresh(lis, config);
+        }
+
+        function fresh(lis, config) {
+            for (var i = 0; i < lis.length; i++) {
+                lis[i].style = config[i];
+                lis[i].setAttribute("index", i);
+                variableAnimate(lis[i], config[i], 20);
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
